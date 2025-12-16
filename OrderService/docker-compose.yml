@@ -1,0 +1,49 @@
+services:
+
+  # Web Server Service
+  order_nginx:
+    image: nginx:alpine
+    container_name: order_nginx
+    ports:
+      - "6061:80"
+    volumes:
+      - ./src:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    depends_on:
+      - order_app
+      - order_db
+
+  order_db:
+    image: postgres
+    container_name: order_db
+    volumes:
+      - ./postgresql/data:/var/lib/postgresql/data
+    ports:
+      - "5467:5432"
+    environment:
+      POSTGRES_DB: Order
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+
+  # Application Service
+  order_app:
+    container_name: order_app
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/var/www
+    ports:
+      - "9001:9000"
+    working_dir: /var/www
+
+  order_pgadmin:
+    image: dpage/pgadmin4
+    container_name: order_pgadmin
+    ports:
+      - "5051:80"
+    depends_on:
+      - order_db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: developer@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: password
