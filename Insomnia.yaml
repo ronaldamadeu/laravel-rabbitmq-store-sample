@@ -1,0 +1,160 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: Laravel RabbitMq Store Sample
+meta:
+  id: wrk_25ee484d7c1e4765bf3f0d06496e5da3
+  created: 1765928039766
+  modified: 1765928039766
+  description: ""
+collection:
+  - name: Product
+    meta:
+      id: fld_420e1685bc9147a4948e8538f7fc6d53
+      created: 1765928513203
+      modified: 1765928513203
+      sortKey: -1765928513203
+      description: ""
+    children:
+      - url: localhost:6060/api/products
+        name: Products
+        meta:
+          id: req_b4de9783fd39432c950c2f3537a0b515
+          created: 1765928046383
+          modified: 1765928520211
+          isPrivate: false
+          description: ""
+          sortKey: -1765928520182
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:6060/api/products
+        name: Product
+        meta:
+          id: req_c28f9a30c6e1498d80f20a293cdc518f
+          created: 1765928345738
+          modified: 1765938662606
+          isPrivate: false
+          description: ""
+          sortKey: -1765928520282
+        method: POST
+        body:
+          mimeType: multipart/form-data
+          params:
+            - name: title
+              value: PS5
+              description: ""
+              disabled: false
+            - name: price
+              value: "499"
+              description: ""
+              disabled: false
+            - name: inventory
+              value: "10"
+              description: ""
+              disabled: false
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Order
+    meta:
+      id: fld_50c03502d9624f779a76b5f54708936d
+      created: 1765929783204
+      modified: 1765929783204
+      sortKey: -1765929783204
+      description: ""
+    children:
+      - url: localhost:6061/api/orders
+        name: Orders
+        meta:
+          id: req_afd79185b6ab4e12aac91bf961c99bad
+          created: 1765929793194
+          modified: 1765929876049
+          isPrivate: false
+          description: ""
+          sortKey: -1765929793194
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:6061/api/orders
+        name: Order
+        meta:
+          id: req_fca5014d655d4a5fa4e5bce6edaaa634
+          created: 1765931558862
+          modified: 1765938669788
+          isPrivate: false
+          description: ""
+          sortKey: -1765929156738
+        method: POST
+        body:
+          mimeType: multipart/form-data
+          params:
+            - name: product_id
+              value: "1"
+              description: ""
+              disabled: false
+            - name: count
+              value: "1"
+              description: ""
+              disabled: false
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_be14ab840f831b7008fa93f001815fa2631f7f54
+    created: 1765928039769
+    modified: 1765928039769
+environments:
+  name: Base Environment
+  meta:
+    id: env_be14ab840f831b7008fa93f001815fa2631f7f54
+    created: 1765928039768
+    modified: 1765928039768
+    isPrivate: false
