@@ -38,3 +38,11 @@ Setting up Laravel in the local environment with Docker using the LEMP stack tha
 
 1. ```cd src```
 2. ```docker-compose exec app php artisan {your command}``` 
+
+
+## RabbitMq Server
+cloudamqp.com
+
+run in ProductService to consume rabbitmq
+> docker compose exec product_app php artisan queue:work
+
