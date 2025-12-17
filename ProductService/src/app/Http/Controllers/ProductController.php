@@ -3,22 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Services\ProductService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    protected Model $model;
+    protected ProductService $service;
 
-    public function __construct(Product $model)
+    public function __construct(ProductService $service)
     {
-        $this->model = $model;
+        $this->service = $service;
     }
 
     public function store(Request $request)
     {
         $data = $request->only(['title', 'price', 'inventory']);
-        $product = $this->model->create($data);
+        $product = $this->service->create($data);
 
         return response()->json([
             'data' => $product,
@@ -28,7 +29,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = $this->model->all();
+        $products = $this->service->all();
 
         return response()->json([
             'data' => $products
@@ -37,8 +38,7 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $product = $this->model->find($id);
-
+        $product = $this->service->find($id);
         if (!$product) {
             return response()->json([
                 'message' => 'Product not found.'
@@ -52,7 +52,7 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        $product = $this->model->find($id);
+        $product = $this->service->find($id);
 
         if (!$product) {
             return response()->json([
@@ -61,7 +61,7 @@ class ProductController extends Controller
         }
 
         $data = $request->only(['title', 'price', 'inventory']);
-        $product->update($data);
+        $product = $this->service->update($id, $data);
 
         return response()->json([
             'data' => $product,
@@ -71,7 +71,7 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
-        $product = $this->model->find($id);
+        $product = $this->service->find($id);
 
         if (!$product) {
             return response()->json([

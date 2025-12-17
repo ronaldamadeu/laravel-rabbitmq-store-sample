@@ -1,25 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Jobs\OrderCreated;
-use App\Models\Order;
-use Illuminate\Database\Eloquent\Model;
+use App\Services\OrderService;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    protected Model $model;
-    public function __construct(Order $model)
+    protected OrderService $service;
+
+    public function __construct(OrderService $service)
     {
-        $this->model = $model;
+        $this->service = $service;
     }
 
     public function store(Request $request)
     {
         $data = $request->only(['product_id', 'count']);
-        $order = $this->model->create($data);
-        OrderCreated::dispatch($order->toArray());
+        $order = $this->service->create($data);
 
         return response()->json([
             'data' => $order,
@@ -29,7 +26,7 @@ class OrderController extends Controller
 
     public function index()
     {
-        $orders = $this->model->all();
+        $orders = $this->service->all();
 
         return response()->json([
             'data' => $orders
